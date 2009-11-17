@@ -59,7 +59,6 @@ class I18nGettextBackendTest < Test::Unit::TestCase
     assert_equal 'Axis', ngettext('Axis', 'Axis', 2)
   end
 
-  # TODO: add this translation to de.po
   def test_pluralizes_namespaced_entry
     I18n.locale = :de
     assert_equal 'Rad',   nsgettext('Car|wheel', 'wheels', 1)
