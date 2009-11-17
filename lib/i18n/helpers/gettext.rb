@@ -32,7 +32,7 @@ module I18n
       def nsgettext(msgid, msgid_plural, n = 1, separator = nil)
         scope, msgid = I18n::Gettext.extract_scope(msgid, separator)
         default = { :one => msgid, :other => msgid_plural }
-        msgid = [msgid, I18n::Gettext::PLURAL_SEPARATOR, msgid_plural].join
+        msgid = [msgid, msgid_plural].join(I18n::Gettext::PLURAL_SEPARATOR)
         I18n.t(msgid, :default => default, :count => n, :scope => scope)
       end
       alias ns_ nsgettext
