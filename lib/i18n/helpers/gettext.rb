@@ -25,11 +25,11 @@ module I18n
       alias p_ pgettext
 
       def ngettext(msgid, msgid_plural, n = 1)
-        nsgettext(msgid, msgid_plural, n, nil)
+        nsgettext(msgid, msgid_plural, n)
       end
       alias n_ ngettext
 
-      def nsgettext(msgid, msgid_plural, n = 1, separator = nil)
+      def nsgettext(msgid, msgid_plural, n = 1, separator = '|')
         scope, msgid = I18n::Gettext.extract_scope(msgid, separator)
         default = { :one => msgid, :other => msgid_plural }
         msgid = [msgid, msgid_plural].join(I18n::Gettext::PLURAL_SEPARATOR)
