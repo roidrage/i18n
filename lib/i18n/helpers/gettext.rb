@@ -18,7 +18,8 @@ module I18n
       end
       alias s_ sgettext
 
-      def pgettext(msgctxt, msgid, separator = I18n::Gettext::CONTEXT_SEPARATOR)
+      def pgettext(msgctxt, msgid)
+        separator = I18n::Gettext::CONTEXT_SEPARATOR
         sgettext([msgctxt, msgid].join(separator), separator)
       end
       alias p_ pgettext

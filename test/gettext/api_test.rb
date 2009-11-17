@@ -51,14 +51,14 @@ class I18nGettextApiTest < Test::Unit::TestCase
   end
 
   def test_pgettext_defaults_to_msgid
-    assert_equal 'bar', pgettext('foo', 'bar', '|')
-    assert_equal 'bar', p_('foo', 'bar', '|')
+    assert_equal 'bar', pgettext('foo', 'bar')
+    assert_equal 'bar', p_('foo', 'bar')
   end
 
   def test_pgettext_looks_up_a_scoped_translation
     I18n.locale = :de
-    assert_equal 'bar-de', pgettext('foo', 'bar', '|')
-    assert_equal 'bar-de', p_('foo', 'bar', '|')
+    assert_equal 'bar-de', pgettext('foo', 'bar')
+    assert_equal 'bar-de', p_('foo', 'bar')
   end
 
   def test_ngettext_looks_up_msg_id_as_default_singular
