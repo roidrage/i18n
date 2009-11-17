@@ -36,6 +36,12 @@ module I18n
         I18n.t(msgid, :default => default, :count => n, :scope => scope)
       end
       alias ns_ nsgettext
+
+      def npgettext(msgctxt, msgid, msgid_plural, n = 1)
+        separator = I18n::Gettext::CONTEXT_SEPARATOR
+        nsgettext([msgctxt, msgid].join(separator), msgid_plural, n, separator)
+      end
+      alias np_ npgettext
     end
   end
 end

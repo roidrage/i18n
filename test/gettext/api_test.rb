@@ -87,4 +87,43 @@ class I18nGettextApiTest < Test::Unit::TestCase
     assert_equal 'A special apple', nsgettext('special|A special apple', '{{count}} special apples', 1, '|')
     assert_equal 'A special apple', ns_('special|A special apple', '{{count}} special apples', 1, '|')
   end
+
+  def test_nsgettext_looks_up_msg_id_plural_as_default_plural
+    assert_equal '2 special apples', nsgettext('special|A special apple', '{{count}} special apples', 2, '|')
+    assert_equal '2 special apples', ns_('special|A special apple', '{{count}} special apples', 2, '|')
+  end
+
+  def test_nsgettext_looks_up_a_singular
+    I18n.locale = :de
+    assert_equal 'Ein spezieller Apfel', nsgettext('special|A special apple', '{{count}} special apples', 1, '|')
+    assert_equal 'Ein spezieller Apfel', ns_('special|A special apple', '{{count}} special apples', 1, '|')
+  end
+
+  def test_nsgettext_looks_up_a_plural
+    I18n.locale = :de
+    assert_equal '2 spezielle Äpfel', nsgettext('special|A special apple', '{{count}} special apples', 2, '|')
+    assert_equal '2 spezielle Äpfel', ns_('special|A special apple', '{{count}} special apples', 2, '|')
+  end
+
+  def test_npgettext_looks_up_msg_id_as_default_singular
+    assert_equal 'A special apple', npgettext('special', 'A special apple', '{{count}} special apples')
+    assert_equal 'A special apple', np_('special', 'A special apple', '{{count}} special apples', 1)
+  end
+
+  def test_npgettext_looks_up_msg_id_plural_as_default_plural
+    assert_equal '2 special apples', npgettext('special', 'A special apple', '{{count}} special apples', 2)
+    assert_equal '2 special apples', np_('special', 'A special apple', '{{count}} special apples', 2)
+  end
+
+  def test_npgettext_looks_up_a_singular
+    I18n.locale = :de
+    assert_equal 'Ein spezieller Apfel', npgettext('special', 'A special apple', '{{count}} special apples', 1)
+    assert_equal 'Ein spezieller Apfel', np_('special', 'A special apple', '{{count}} special apples', 1)
+  end
+
+  def test_npgettext_looks_up_a_plural
+    I18n.locale = :de
+    assert_equal '2 spezielle Äpfel', npgettext('special', 'A special apple', '{{count}} special apples', 2)
+    assert_equal '2 spezielle Äpfel', np_('special', 'A special apple', '{{count}} special apples', 2)
+  end
 end
