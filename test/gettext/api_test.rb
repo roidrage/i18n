@@ -71,13 +71,13 @@ class I18nGettextApiTest < Test::Unit::TestCase
     assert_equal '2 apples', n_('An apple', '{{count}} apples', 2)
   end
 
-  def test_ngettext_looks_up_msg_id_as_singular
+  def test_ngettext_looks_up_a_singular
     I18n.locale = :de
     assert_equal 'Ein Apfel', ngettext('An apple', '{{count}} apples', 1)
     assert_equal 'Ein Apfel', n_('An apple', '{{count}} apples', 1)
   end
 
-  def test_ngettext_looks_up_msg_id_as_singular
+  def test_ngettext_looks_up_a_plural
     I18n.locale = :de
     assert_equal '2 Äpfel', ngettext('An apple', '{{count}} apples', 2)
     assert_equal '2 Äpfel', n_('An apple', '{{count}} apples', 2)
