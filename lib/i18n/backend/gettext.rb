@@ -59,7 +59,11 @@ module I18n
 
         def normalize_pluralization(locale, key, value)
           # FIXME po_parser includes \000 chars that can not be turned into Symbols
-          key = key.dup.gsub("\000", I18n::Gettext::PLURAL_SEPARATOR).split(I18n::Gettext::PLURAL_SEPARATOR).first
+          # key_parts = key.gsub("\000", I18n::Gettext::PLURAL_SEPARATOR).split(I18n::Gettext::PLURAL_SEPARATOR).first
+          key_parts = key.gsub("\000", I18n::Gettext::PLURAL_SEPARATOR).split(I18n::Gettext::PLURAL_SEPARATOR)
+          key = [key_parts.shift]
+          key_parts.each { |part| key << part.split('|').last }
+          key = key.join(I18n::Gettext::PLURAL_SEPARATOR)
 
           keys = I18n::Gettext.plural_keys(locale)
           values = value.split("\000")
