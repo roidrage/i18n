@@ -109,7 +109,7 @@ class I18nGettextApiTest < Test::Unit::TestCase
   end
 
   def test_npgettext_looks_up_msg_id_as_default_singular
-    assert_equal 'A special apple', npgettext('special', 'A special apple', '{{count}} special apples')
+    assert_equal 'A special apple', npgettext('special', 'A special apple', '{{count}} special apples', 1)
     assert_equal 'A special apple', np_('special', 'A special apple', '{{count}} special apples', 1)
   end
 
