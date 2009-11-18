@@ -75,4 +75,12 @@ class I18nGettextBackendTest < Test::Unit::TestCase
     assert_equal 'wheel',  npgettext('Car', 'wheel', 'wheels', 1)
     assert_equal 'wheels', npgettext('Car', 'wheel', 'wheels', 2)
   end
+
+  def test_pluralizes_namespaced_entry_with_alternative_syntax
+    I18n.locale = :de
+    assert_equal 'Rad',   nsgettext(['Car|wheel', 'wheels'], 1)
+    assert_equal 'Räder', nsgettext(['Car|wheel', 'wheels'], 2)
+    assert_equal 'Rad',   npgettext('Car', ['wheel', 'wheels'], 1)
+    assert_equal 'Räder', npgettext('Car', ['wheel', 'wheels'], 2)
+  end
 end

@@ -29,7 +29,15 @@ module I18n
       end
       alias n_ ngettext
 
+      # Method signatures:
+      #   nsgettext('Fruits|apple', 'apples', 2)
+      #   nsgettext(['Fruits|apple', 'apples'], 2)
       def nsgettext(msgid, msgid_plural, n = 1, separator = '|')
+        if msgid.is_a?(Array)
+          msgid, msgid_plural, n, separator = msgid[0], msgid[1], msgid_plural, n
+          separator = '|' unless separator.is_a?(String)
+        end
+
         scope, msgid = I18n::Gettext.extract_scope(msgid, separator)
         default = { :one => msgid, :other => msgid_plural }
         msgid = [msgid, msgid_plural].join(I18n::Gettext::PLURAL_SEPARATOR)
@@ -37,9 +45,19 @@ module I18n
       end
       alias ns_ nsgettext
 
+      # Method signatures:
+      #   npgettext('Fruits', 'apple', 'apples', 2)
+      #   npgettext('Fruits', ['apple', 'apples'], 2)
       def npgettext(msgctxt, msgid, msgid_plural, n = 1)
         separator = I18n::Gettext::CONTEXT_SEPARATOR
-        nsgettext([msgctxt, msgid].join(separator), msgid_plural, n, separator)
+
+        if msgid.is_a?(Array)
+          msgid_plural, msgid, n = msgid[1], [msgctxt, msgid[0]].join(separator), msgid_plural
+        else
+          msgid = [msgctxt, msgid].join(separator)
+        end
+
+        nsgettext(msgid, msgid_plural, n, separator)
       end
       alias np_ npgettext
     end
