@@ -25,7 +25,8 @@ class I18nGettextBackendTest < Test::Unit::TestCase
 
   def test_backend_loads_po_file
     I18n.backend.send(:init_translations)
-    assert I18n.backend.send(:translations)[:de][:"Axis\001Axis"]
+    # assert I18n.backend.send(:translations)[:de][:"Axis\001Axis"]
+    assert I18n.backend.send(:translations)[:de][:"Axis"]
   end
 
   def test_looks_up_a_translation

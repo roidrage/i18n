@@ -12,8 +12,10 @@ class I18nGettextApiTest < Test::Unit::TestCase
     I18n.backend.store_translations :de, {
       'Hi Gettext!' => 'Hallo Gettext!',
       'Sentence 1. Sentence 2.' => 'Satz 1. Satz 2.',
-      "An apple#{I18n::Gettext::PLURAL_SEPARATOR}{{count}} apples" => { :one => 'Ein Apfel', :other => '{{count}} Äpfel' },
-      :special => { 'An apple' => { :one => 'Ein spezieller Apfel', :other => '{{count}} spezielle Äpfel' } },
+      # "An apple#{I18n::Gettext::PLURAL_SEPARATOR}{{count}} apples" => { :one => 'Ein Apfel', :other => '{{count}} Äpfel' },
+      # :special => { "A special apple#{I18n::Gettext::PLURAL_SEPARATOR}{{count}} special apples" => { :one => 'Ein spezieller Apfel', :other => '{{count}} spezielle Äpfel' } },
+      "An apple" => { :one => 'Ein Apfel', :other => '{{count}} Äpfel' },
+      :special => { "A special apple" => { :one => 'Ein spezieller Apfel', :other => '{{count}} spezielle Äpfel' } },
       :foo => { :bar => 'bar-de' }
     }
   end
