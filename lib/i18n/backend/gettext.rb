@@ -39,14 +39,6 @@ module I18n
           GetText::PoParser.new.parse(::File.read(filename), PoData.new)
         end
 
-        # def normalize(locale, data)
-        #   data.inject({}) do |result, (key, value)|
-        #     key, value = normalize_pluralization(locale, key, value) if key.index("\000")
-        #     result[key] = value
-        #     result
-        #   end
-        # end
-
         def normalize(locale, data)
           data.inject({}) do |result, (key, value)|
             unless key.blank?
