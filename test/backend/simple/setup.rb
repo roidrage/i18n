@@ -109,6 +109,45 @@ module Tests
                     :one => 'over 1 year',
                     :other => 'over {{count}} years'
                   }
+                },
+              },
+              :number => {
+                :format => {
+                  :precision => 2,
+                  :separator => ',',
+                  :delimiter => '.'
+                },
+                :currency => {
+                  :format => {
+                    :unit =>  '€',
+                    :format => '%n%u'
+                  }
+                },
+                :percentage => {
+                  :format => {
+                    :delimiter => ''
+                  }
+                },
+                :human => {
+                  :format => {
+                    :delimiter => '',
+                    :precision => 1
+                  },
+                  :storage_units => {
+                    # Storage units output formatting.
+                    # %u is the storage unit, %n is the number (default: 2 MB)
+                    :format => '%n %u',
+                    :units => {
+                      :byte => {
+                        :one   => 'Byte',
+                        :other =>'Bytes'
+                      },
+                      :kb => "KB",
+                      :mb => "MB",
+                      :gb => "GB",
+                      :tb => "TB"
+                    }
+                  }
                 }
               }
             }

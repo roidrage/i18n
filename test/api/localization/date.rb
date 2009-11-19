@@ -51,11 +51,11 @@ module Tests
           end
 
           def test_localize_given_no_format_it_does_not_fail
-            assert_nothing_raised{ I18n.backend.localize 'de', date }
+            assert_nothing_raised { I18n.backend.localize 'de', date }
           end
 
           def test_localize_given_an_unknown_format_it_does_not_fail
-            assert_nothing_raised{ I18n.backend.localize 'de', date, '%x' }
+            assert_nothing_raised { I18n.backend.localize 'de', date, '%x' }
           end
 
           def test_localize_nil_raises_argument_error

@@ -85,4 +85,9 @@ class I18nAllBackendApiLocalizeLambdaTest < Test::Unit::TestCase
   include Tests::Backend::Api::Localization::Lambda
 end
 
-
+class I18nAllBackendApiLocalizeNumberTest < Test::Unit::TestCase
+  include Tests::Backend::Simple::Setup::Base
+  include Tests::Backend::Simple::Setup::Localization
+  include AllSetup
+  include Tests::Backend::Api::Localization::Number
+end

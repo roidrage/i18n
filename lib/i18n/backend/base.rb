@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'yaml'
+require 'i18n/formatters'
 
 module I18n
   module Backend
@@ -45,27 +46,16 @@ module I18n
       # format string. Takes a key from the date/time formats translations as
       # a format argument (<em>e.g.</em>, <tt>:short</tt> in <tt>:'date.formats'</tt>).
       def localize(locale, object, format = :default, options = {})
-        raise ArgumentError, "Object must be a Date, DateTime or Time object. #{object.inspect} given." unless object.respond_to?(:strftime)
-
-        if Symbol === format
-          key = format
-          type = object.respond_to?(:sec) ? 'time' : 'date'
-          format = lookup(locale, :"#{type}.formats.#{key}")
-          raise(MissingTranslationData.new(locale, key, options)) if format.nil?
+        formatter = case object
+        when Numeric
+          I18n::Formatters::Number
+        when Date, Time, DateTime
+          I18n::Formatters::DateTime
         end
 
-        format = resolve(locale, object, format, options)
-        format = format.to_s.gsub(/%[aAbBp]/) do |match|
-          case match
-          when '%a' then I18n.t(:"date.abbr_day_names",                  :locale => locale, :format => format)[object.wday]
-          when '%A' then I18n.t(:"date.day_names",                       :locale => locale, :format => format)[object.wday]
-          when '%b' then I18n.t(:"date.abbr_month_names",                :locale => locale, :format => format)[object.mon]
-          when '%B' then I18n.t(:"date.month_names",                     :locale => locale, :format => format)[object.mon]
-          when '%p' then I18n.t(:"time.#{object.hour < 12 ? :am : :pm}", :locale => locale, :format => format) if object.respond_to? :hour
-          end
-        end
+        raise I18n::ArgumentError.new("Can't localize #{object.inspect}.") unless formatter
 
-        object.strftime(format)
+        formatter.new(locale, object, format, options).format
       end
 
       def initialized?
